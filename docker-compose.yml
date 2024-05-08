@@ -1,0 +1,24 @@
+version: '1'
+
+services:
+  db:
+    image: postgres:alpine
+    container_name: final-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: test
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  fastapi:
+    build: https://github.com/Dereto/wap-final-be.git
+    container_name: final-be
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./.env
+    depends_on:
+      - db
