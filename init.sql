@@ -26,8 +26,6 @@ CREATE TABLE IF NOT EXISTS pages (
     UNIQUE(book_id, page_number)
 );
 
-CREATE INDEX idx_book_page ON pages (book_id, page_number);
-
 -- Insert data
 INSERT INTO users (username, password, point) VALUES
     ('admin', '$2b$12$s1wj98ds1os1AtIOoBHAT.0h1JlFsm/Htg5Es30PJQYmYjDALHZWK', 999),
@@ -50,9 +48,4 @@ INSERT INTO pages (book_id, page_number) VALUES
     (2, 2),
     (3, 1),
     (3, 2),
-    (3, 3),
-    (4, 1),
-    (4, 2),
-    (4, 3),
-    (4, 4),
-    (4, 5);
+    (3, 3)
