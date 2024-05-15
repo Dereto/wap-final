@@ -40,12 +40,14 @@ INSERT INTO books (title, author, description, total_pages) VALUES
     ('Pride and Prejudice', 'Jane Austen', 'A romantic novel set in the early 19th century, revolving around the lives of the Bennet sisters and their pursuit of marriage.', 5);
 
 -- Insert data into the pages table
+INSERT INTO pages (uuid, book_id, page_number) VALUES
+    ('60a23a54-fc3e-49b5-89d2-0d527194fe0c', 1, 1),
+    ('4df0d5b3-99ad-4fba-b9ae-9513db35e5d5', 1, 2),
+    ('b8dbb208-df61-49bd-ade7-15fa2b7a73d0', 1, 3);
+
 INSERT INTO pages (book_id, page_number) VALUES
-    (1, 1),
-    (1, 2),
-    (1, 3),
     (2, 1),
     (2, 2),
     (3, 1),
     (3, 2),
-    (3, 3)
+    (3, 3);

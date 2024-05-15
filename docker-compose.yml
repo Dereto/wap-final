@@ -22,3 +22,10 @@ services:
       - ./.env
     depends_on:
       - db
+      - node
+
+  node:
+    build: https://github.com/Dereto/wap-final-fs.git
+    container_name: final-fs
+    ports:
+      - "8080:8080"
