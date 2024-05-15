@@ -38,7 +38,7 @@
                 console.log(data)
                 // Once authenticated, store the token and user id in local storage
                 localStorage.setItem('token', data.token);
-                localStorage.setItem('userId', data.id);
+                localStorage.setItem('userId', data.user_id);
 
                 // Redirect to profile page
                 window.location.href = 'profile.html';
