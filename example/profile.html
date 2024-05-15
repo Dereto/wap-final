@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .profile-info {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        .user-info {
+            text-align: left;
+        }
+        .user-info p {
+            margin: 10px 0;
+        }
+        .error-message {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+<div class="profile-info">
+    <h2>User Profile</h2>
+    <div class="user-info" id="userInfo">
+        <!-- User information will be displayed here -->
+    </div>
+    <button onclick="logout()">Logout</button>
+</div>
+
+<script>
+    // Function to fetch user data from the backend
+    function fetchUserData() {
+        var token = localStorage.getItem('token');
+        var userId = localStorage.getItem('userId');
+        console.log(userId)
+
+        fetch(`http://localhost:8000/user/${userId}`, {
+            method: 'GET',
+            headers: {
+                'Access-Token': token
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch user data');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Display user information on the profile page
+            var userInfoDiv = document.getElementById('userInfo');
+            userInfoDiv.innerHTML = `
+                <p><strong>Username:</strong> ${data.username}</p>
+                <p><strong>Point:</strong> ${data.point}</p>
+                <!-- Add more profile information here as needed -->
+            `;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            var userInfoDiv = document.getElementById('userInfo');
+            userInfoDiv.innerHTML = '<p class="error-message">Failed to fetch user data. Please try again later.</p>';
+        });
+    }
+
+    // Function to logout and clear sessionStorage
+    function logout() {
+        sessionStorage.clear();
+        // Redirect to the login page
+        window.location.href = 'index.html';
+    }
+
+    // Call fetchUserData function when the page loads
+    fetchUserData();
+</script>
+
+</body>
+</html>
