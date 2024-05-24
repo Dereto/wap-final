@@ -4,8 +4,11 @@ CREATE EXTENSION "uuid-ossp";
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(100) UNIQUE,
-    password VARCHAR(100),
-    point INTEGER
+    password VARCHAR(100) Not NULL,
+    point INTEGER DEFAULT 0,
+    gender VARCHAR(10) DEFAULT 'Other',
+    birthday DATE,
+    self_description TEXT
 );
 
 
@@ -26,11 +29,18 @@ CREATE TABLE IF NOT EXISTS pages (
     UNIQUE(book_id, page_number)
 );
 
+CREATE TABLE IF NOT EXISTS reading_history (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id) NOT NULL,
+    book_id INTEGER REFERENCES books(id) NOT NULL,
+    opened_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Insert data
-INSERT INTO users (username, password, point) VALUES
-    ('admin', '$2b$12$s1wj98ds1os1AtIOoBHAT.0h1JlFsm/Htg5Es30PJQYmYjDALHZWK', 999),
-    ('Alice', '$2b$12$xUbazOYRgTZ5XD9fajfM1uXvLmtAI5.nYsfmunp3aipppYsuW9vlC', 10),
-    ('Bob', '$2b$12$xUbazOYRgTZ5XD9fajfM1uXvLmtAI5.nYsfmunp3aipppYsuW9vlC', 50);
+INSERT INTO users (username, password, point, gender, birthday, self_description) VALUES
+    ('admin', '$2b$12$s1wj98ds1os1AtIOoBHAT.0h1JlFsm/Htg5Es30PJQYmYjDALHZWK', 999, 'Other', '2000-01-01', 'The admin.'),
+    ('Alice', '$2b$12$xUbazOYRgTZ5XD9fajfM1uXvLmtAI5.nYsfmunp3aipppYsuW9vlC', 10, 'Female', '2004-04-01', 'Just a test account.'),
+    ('Bob', '$2b$12$xUbazOYRgTZ5XD9fajfM1uXvLmtAI5.nYsfmunp3aipppYsuW9vlC', 50, 'Male', '2008-10-31', 'Just another test account.');
 
 -- Insert data into the books table
 INSERT INTO books (title, author, description, total_pages) VALUES
