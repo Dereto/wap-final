@@ -17,6 +17,8 @@ CREATE TABLE IF NOT EXISTS books (
     id SERIAL PRIMARY KEY,
     title VARCHAR UNIQUE,
     author VARCHAR,
+    publisher VARCHAR NOT NULL DEFAULT 'Unknown',
+    isbn VARCHAR,
     description TEXT,
     total_pages INTEGER NOT NULL
 );
