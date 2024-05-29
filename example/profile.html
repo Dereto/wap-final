@@ -48,7 +48,7 @@
         var userId = localStorage.getItem('userId');
         console.log(userId)
 
-        fetch(`http://localhost:8000/user/${userId}`, {
+        fetch(`http://localhost:8080/api/user/${userId}`, {
             method: 'GET',
             headers: {
                 'Access-Token': token
