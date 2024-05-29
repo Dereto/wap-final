@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS books (
     cover UUID DEFAULT uuid_generate_v4(),
     author VARCHAR,
     publisher VARCHAR,
-    isbn VARCHAR UNIQUE,
+    isbn VARCHAR,
     description TEXT,
     total_pages INTEGER NOT NULL
 );
