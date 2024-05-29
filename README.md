@@ -30,8 +30,8 @@ To get started, make sure you have Docker installed on your system. You can down
 
 4. Once the services are up and running, you can access the backend services at the following ports:
 
-   - **FastAPI Backend:** http://localhost:8000
-   - **Node.js File Server:** http://localhost:8080
+   - **FastAPI Backend:** http://localhost:8080/api/
+   - **Node.js File Server:** http://localhost:8080/image/
 
 ## Configuration
 
@@ -48,7 +48,7 @@ PG_PASSWORD="123"
 PG_DBNAME="test"
 
 FS_HOST="node"
-FS_PORT="8080"
+FS_PORT="3000"
 ```
 
 ## Usage
@@ -61,11 +61,11 @@ The example directory contains my take of login flow, so you can get ideas of ho
 , if it doesn't work on yours, contact me asap.
 
 The books related api are set up, and every thing should be work now, I hope. Currently, when you tried to fetch pages, you'll receive uuid of the images.
-The uuids can be used to get image from fileserver, via url `http://localhost:8080/<uuid>.<img type>`. Note that this url should be able to work inside html <img> tag.
-The first book contains preload images(the img types were png btw), so the uuid you fetch should work. The second and third book only contain dummy uuids,
+The uuids can be used to get image from fileserver, via url `http://localhost:8080/image/<uuid>`. Note that this url should be able to work inside html <img> tag.
+The first book contains preload images, so the uuid you fetch should work. The second and third book only contain dummy uuids,
 the fourth book are left blank for you to test add page api.
 
-For backend api detail, please refer to http://localhost:8000/docs, if you can, make sure the api you tried to implement on front end works by Postman or /docs or other debugging tools.
+For backend api detail, please refer to http://localhost:8080/api/docs, if you can, make sure the api you tried to implement on front end works by Postman or /docs or other debugging tools.
 
 ## Cleanup
 
