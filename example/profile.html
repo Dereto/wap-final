@@ -9,6 +9,7 @@
             font-family: Arial, sans-serif;
             text-align: center;
         }
+
         .profile-info {
             max-width: 500px;
             margin: 50px auto;
@@ -17,17 +18,22 @@
             border-radius: 5px;
             background-color: #f9f9f9;
         }
+
         h2 {
             margin-bottom: 20px;
         }
+
         .user-info {
             text-align: left;
         }
+
         .user-info p {
             margin: 10px 0;
         }
+
         .error-message {
             color: red;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -40,13 +46,18 @@
     </div>
     <button onclick="logout()">Logout</button>
 </div>
-
+<a href="home.html" class="back-button">Back to Home</a>
 <script>
     // Function to fetch user data from the backend
     function fetchUserData() {
         var token = localStorage.getItem('token');
         var userId = localStorage.getItem('userId');
-        console.log(userId)
+
+        // Redirect to login if token or userId is missing
+        if (!token || !userId) {
+            window.location.href = 'index.html';
+            return;
+        }
 
         fetch(`http://localhost:8080/api/user/${userId}`, {
             method: 'GET',
@@ -54,33 +65,33 @@
                 'Access-Token': token
             }
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to fetch user data');
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Display user information on the profile page
-            var userInfoDiv = document.getElementById('userInfo');
-            userInfoDiv.innerHTML = `
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch user data');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Display user information on the profile page
+                var userInfoDiv = document.getElementById('userInfo');
+                userInfoDiv.innerHTML = `
                 <p><strong>Username:</strong> ${data.username}</p>
-                <p><strong>Point:</strong> ${data.point}</p>
+                <p><strong>Points:</strong> ${data.point}</p>
                 <!-- Add more profile information here as needed -->
             `;
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            var userInfoDiv = document.getElementById('userInfo');
-            userInfoDiv.innerHTML = '<p class="error-message">Failed to fetch user data. Please try again later.</p>';
-        });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                var userInfoDiv = document.getElementById('userInfo');
+                userInfoDiv.innerHTML = '<p class="error-message">Failed to fetch user data. Please try again later.</p>';
+            });
     }
 
-    // Function to logout and clear sessionStorage
+    // Function to logout and clear localStorage
     function logout() {
-        sessionStorage.clear();
+        localStorage.clear();
         // Redirect to the login page
-        window.location.href = 'index.html';
+        window.location.href = 'home.html';
     }
 
     // Call fetchUserData function when the page loads

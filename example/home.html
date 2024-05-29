@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #f1f1f1;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .header a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .main {
+            padding: 20px;
+        }
+
+        .book-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .book-list li {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .book-list li a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+
+        .book-list li a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Book List</h1>
+    <a id="authLink" href="login.html">Login</a>
+</div>
+
+<div class="main">
+    <h2>Available Books</h2>
+    <ul class="book-list" id="bookList">
+        <!-- Book titles will be displayed here -->
+    </ul>
+    <p id="errorMessage" class="error-message"></p>
+</div>
+
+<script>
+    // Function to fetch book data from the backend
+    function fetchBooks() {
+        fetch('http://localhost:8080/api/book/', {
+            method: 'GET'
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch books');
+                }
+                return response.json();
+            })
+            .then(data => {
+                var bookList = document.getElementById('bookList');
+                bookList.innerHTML = '';
+
+                data.forEach(book => {
+                    var li = document.createElement('li');
+                    var a = document.createElement('a');
+                    a.href = `book-profile.html?bookId=${book.id}`;
+                    a.textContent = book.title;
+                    li.appendChild(a);
+                    bookList.appendChild(li);
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('errorMessage').textContent = 'Failed to fetch books. Please try again later.';
+            });
+    }
+
+    function updateAuthLink() {
+        var token = localStorage.getItem('token');
+        var authLink = document.getElementById('authLink');
+        if (token) {
+            authLink.href = 'profile.html';
+            authLink.textContent = 'Profile';
+        }
+    }
+
+
+    // Call fetchBooks function when the page loads
+    document.addEventListener('DOMContentLoaded', function () {
+        fetchBooks();
+        updateAuthLink();
+    });
+</script>
+
+</body>
+</html>
