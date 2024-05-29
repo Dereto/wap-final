@@ -8,6 +8,8 @@ services:
       POSTGRES_USER: test
       POSTGRES_PASSWORD: 123
       POSTGRES_DB: test
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
   fastapi:
     build: https://github.com/Dereto/wap-final-be.git
