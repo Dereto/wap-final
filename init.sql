@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS books (
     cover UUID DEFAULT uuid_generate_v4(),
     author VARCHAR,
     publisher VARCHAR,
-    isbn VARCHAR,
+    isbn VARCHAR UNIQUE,
     description TEXT,
     total_pages INTEGER NOT NULL
 );
@@ -46,11 +46,11 @@ INSERT INTO users (username, password, point, gender, birthday, self_description
     ('Bob', '$2b$12$xUbazOYRgTZ5XD9fajfM1uXvLmtAI5.nYsfmunp3aipppYsuW9vlC', 50, 'Male', '2008-10-31', 'Just another test account.');
 
 -- Insert data into the books table
-INSERT INTO books (title, author, description, total_pages) VALUES
-    ('The Great Gatsby', 'F. Scott Fitzgerald', 'The story of the mysteriously wealthy Jay Gatsby and his love for the beautiful Daisy Buchanan.', 3),
-    ('To Kill a Mockingbird', 'Harper Lee', 'The story of young girl Scout Finch, her brother Jem, and their father Atticus, who defends a black man accused of raping a white woman.', 2),
-    ('1984', 'George Orwell', 'A dystopian novel set in a totalitarian regime, where the government constantly surveils its citizens and controls all aspects of their lives.', 3),
-    ('Pride and Prejudice', 'Jane Austen', 'A romantic novel set in the early 19th century, revolving around the lives of the Bennet sisters and their pursuit of marriage.', 5);
+INSERT INTO books (title, author, description, total_pages, publisher, isbn) VALUES
+    ('The Great Gatsby', 'F. Scott Fitzgerald', 'The story of the mysteriously wealthy Jay Gatsby and his love for the beautiful Daisy Buchanan.', 3, 'NTU press', 'idontknowwahtisbnlooklike1'),
+    ('To Kill a Mockingbird', 'Harper Lee', 'The story of young girl Scout Finch, her brother Jem, and their father Atticus, who defends a black man accused of raping a white woman.', 2, 'NCCU press', 'idontknowwahtisbnlooklike2'),
+    ('1984', 'George Orwell', 'A dystopian novel set in a totalitarian regime, where the government constantly surveils its citizens and controls all aspects of their lives.', 3, 'NTU press', 'idontknowwahtisbnlooklike3'),
+    ('Pride and Prejudice', 'Jane Austen', 'A romantic novel set in the early 19th century, revolving around the lives of the Bennet sisters and their pursuit of marriage.', 5, 'NTU press', 'idontknowwahtisbnlooklike4');
 
 -- Insert data into the pages table
 INSERT INTO pages (uuid, book_id, page_number) VALUES
