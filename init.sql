@@ -16,8 +16,9 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS books (
     id SERIAL PRIMARY KEY,
     title VARCHAR UNIQUE,
+    cover UUID DEFAULT uuid_generate_v4(),
     author VARCHAR,
-    publisher VARCHAR NOT NULL DEFAULT 'Unknown',
+    publisher VARCHAR,
     isbn VARCHAR,
     description TEXT,
     total_pages INTEGER NOT NULL
