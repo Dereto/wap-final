@@ -8,8 +8,6 @@ services:
       POSTGRES_USER: test
       POSTGRES_PASSWORD: 123
       POSTGRES_DB: test
-    volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
   fastapi:
     build: https://github.com/Dereto/wap-final-be.git
@@ -26,4 +24,17 @@ services:
     build: https://github.com/Dereto/wap-final-fs.git
     container_name: final-fs
     ports:
-      - "8080:8080"
+      - "3000:3000"
+    environment:
+      - PORT=3000
+
+  nginx:
+    image: nginx:alpine
+    container_name: final-nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - fastapi
+      - node
