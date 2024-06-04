@@ -43,7 +43,9 @@ With the backend services running, you can now test your frontend deployment aga
 
 ## Testing
 
-For backend api detail, please refer to http://localhost:8080/api/docs, if you can, make sure the api you tried to implement on front end works by Postman or /docs or other debugging tools.
+The database has preload 6 books and 3 users.
+Node.js is serving images the books needed, to access images with uuid, visit http://localhost:8080/image/<uuid>
+For backend api details, please refer to http://localhost:8080/api/docs.
 
 ## Cleanup
 
