@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS books (
     id SERIAL PRIMARY KEY,
     title VARCHAR UNIQUE,
-    cover UUID DEFAULT uuid_generate_v4(),
+    FOREIGN KEY (cover) REFERENCES pages(uuid),
     author VARCHAR,
     publisher VARCHAR,
     isbn VARCHAR,
