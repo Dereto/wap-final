@@ -3,9 +3,9 @@ services:
     image: postgres:alpine
     container_name: final-db
     environment:
-      POSTGRES_USER: test
-      POSTGRES_PASSWORD: 123
-      POSTGRES_DB: test
+      POSTGRES_USER: wap-group-l
+      POSTGRES_PASSWORD: 5uper53cr3t-p4ssw0rd
+      POSTGRES_DB: wap-picture-book
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
