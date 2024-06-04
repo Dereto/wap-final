@@ -44,7 +44,7 @@ With the backend services running, you can now test your frontend deployment aga
 ## Testing
 
 The database has preload 6 books and 3 users.
-Node.js is serving images the books needed, to access images with uuid, visit http://localhost:8080/image/<uuid>
+Node.js is serving images the books needed, to access images with uuid, visit http://localhost:8080/image/`<uuid>`
 For backend api details, please refer to http://localhost:8080/api/docs.
 
 ## Cleanup
